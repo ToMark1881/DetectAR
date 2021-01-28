@@ -1,0 +1,36 @@
+
+/* Class = "UILabel"; text = "Translations"; ObjectID = "6OL-zx-Pej"; */
+"6OL-zx-Pej.text" = "Переклад об'єктів β";
+
+/* Class = "UILabel"; text = "Detect"; ObjectID = "8IT-h8-SvZ"; */
+"8IT-h8-SvZ.text" = "Detect";
+
+/* Class = "UILabel"; text = "AR"; ObjectID = "Gcc-Vv-VvX"; */
+"Gcc-Vv-VvX.text" = "AR";
+
+/* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "Hpn-4P-dor"; */
+"Hpn-4P-dor.normalTitle" = "Налаштування";
+
+/* Class = "UILabel"; text = "Debug Information"; ObjectID = "MuM-5y-YKN"; */
+"MuM-5y-YKN.text" = "Debug-інформація";
+
+/* Class = "UIButton"; normalTitle = "Undo"; ObjectID = "UBx-Ur-PYI"; */
+"UBx-Ur-PYI.normalTitle" = "Відмінити";
+
+/* Class = "UILabel"; text = "Detect"; ObjectID = "a48-hX-k8J"; */
+"a48-hX-k8J.text" = "Detect";
+
+/* Class = "UIButton"; normalTitle = "About"; ObjectID = "efU-dP-HJo"; */
+"efU-dP-HJo.normalTitle" = "Про застосунок";
+
+/* Class = "UIViewController"; title = "Settings"; ObjectID = "gNC-cH-Oab"; */
+"gNC-cH-Oab.title" = "Налаштування";
+
+/* Class = "UIButton"; normalTitle = "Start"; ObjectID = "lXC-hc-km5"; */
+"lXC-hc-km5.normalTitle" = "Запуск";
+
+/* Class = "UILabel"; text = "AR"; ObjectID = "ld6-g1-ioN"; */
+"ld6-g1-ioN.text" = "AR";
+
+/* Class = "UILabel"; text = "Select ML Model:"; ObjectID = "wTM-cZ-WA0"; */
+"wTM-cZ-WA0.text" = "Оберіть ML Модель:";

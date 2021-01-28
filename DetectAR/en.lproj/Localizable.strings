@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  DetectAR
+
+  Created by Vladyslav Vdovychenko on 28.01.2021.
+  
+*/
+
+"currentLanguage" = "en";
+"Translation" = "Translation";
+"Need to download language model" = "Need to download language model";
+"Download" = "Download";
+"Cancel" = "Cancel";
+"Error" = "Error";
