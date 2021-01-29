@@ -61,45 +61,48 @@ extension ScannerInteractor: ScannerInputProtocol {
         }
     }
     
-    func generateNode(with text: String, and depth: Float) -> SCNNode {
+    func generateNode(with text: String, and depth: Float, completion: @escaping (SCNNode) -> Void) {
         // Warning: Creating 3D Text is susceptible to crashing. To reduce chances of crashing; reduce number of polygons, letters, smoothness, etc.
-
-        // TEXT BILLBOARD CONSTRAINT
-        let billboardConstraint = SCNBillboardConstraint()
-        billboardConstraint.freeAxes = SCNBillboardAxis.Y
+        DispatchQueue.global(qos: .userInitiated).async {
+            // TEXT BILLBOARD CONSTRAINT
+            let billboardConstraint = SCNBillboardConstraint()
+            billboardConstraint.freeAxes = SCNBillboardAxis.Y
+            
+            // BUBBLE-TEXT
+            let bubble = SCNText(string: text, extrusionDepth: CGFloat(depth))
+            var font = UIFont(name: "HelveticaNeue-Medium", size: 0.18)
+            font = font?.withTraits(traits: .traitBold)
+            bubble.font = font
+            bubble.alignmentMode = CATextLayerAlignmentMode.center.rawValue
+            bubble.firstMaterial?.diffuse.contents = UIColor(named: "Accent")
+            bubble.firstMaterial?.specular.contents = UIColor.white
+            bubble.firstMaterial?.isDoubleSided = true
+            // bubble.flatness // setting this too low can cause crashes.
+            bubble.chamferRadius = CGFloat(depth)
+            
+            // BUBBLE NODE
+            let (minBound, maxBound) = bubble.boundingBox
+            let bubbleNode = SCNNode(geometry: bubble)
+            // Centre Node - to Centre-Bottom point
+            bubbleNode.pivot = SCNMatrix4MakeTranslation( (maxBound.x - minBound.x)/2, minBound.y, depth/2)
+            // Reduce default text size
+            bubbleNode.scale = SCNVector3Make(0.2, 0.2, 0.2)
+            
+            // CENTRE POINT NODE
+            let sphere = SCNSphere(radius: 0.005)
+            sphere.firstMaterial?.diffuse.contents = UIColor.red
+            let sphereNode = SCNNode(geometry: sphere)
+            DispatchQueue.main.async {
+                // BUBBLE PARENT NODE
+                let bubbleNodeParent = SCNNode()
+                bubbleNodeParent.addChildNode(bubbleNode)
+                bubbleNodeParent.addChildNode(sphereNode)
+                bubbleNodeParent.constraints = [billboardConstraint]
+                
+                completion(bubbleNodeParent)
+            }
+        }
         
-        // BUBBLE-TEXT
-        let bubble = SCNText(string: text, extrusionDepth: CGFloat(depth))
-        var font = UIFont(name: "HelveticaNeue-Medium", size: 0.18)
-        font = font?.withTraits(traits: .traitBold)
-        bubble.font = font
-        bubble.alignmentMode = CATextLayerAlignmentMode.center.rawValue
-        bubble.firstMaterial?.diffuse.contents = UIColor(named: "Accent")
-        bubble.firstMaterial?.specular.contents = UIColor.white
-        bubble.firstMaterial?.isDoubleSided = true
-        // bubble.flatness // setting this too low can cause crashes.
-        bubble.chamferRadius = CGFloat(depth)
-        
-        // BUBBLE NODE
-        let (minBound, maxBound) = bubble.boundingBox
-        let bubbleNode = SCNNode(geometry: bubble)
-        // Centre Node - to Centre-Bottom point
-        bubbleNode.pivot = SCNMatrix4MakeTranslation( (maxBound.x - minBound.x)/2, minBound.y, depth/2)
-        // Reduce default text size
-        bubbleNode.scale = SCNVector3Make(0.2, 0.2, 0.2)
-        
-        // CENTRE POINT NODE
-        let sphere = SCNSphere(radius: 0.005)
-        sphere.firstMaterial?.diffuse.contents = UIColor.red
-        let sphereNode = SCNNode(geometry: sphere)
-        
-        // BUBBLE PARENT NODE
-        let bubbleNodeParent = SCNNode()
-        bubbleNodeParent.addChildNode(bubbleNode)
-        bubbleNodeParent.addChildNode(sphereNode)
-        bubbleNodeParent.constraints = [billboardConstraint]
-        
-        return bubbleNodeParent
     }
     
 }

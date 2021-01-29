@@ -112,12 +112,11 @@ class ScannerViewController: BaseViewController {
                                                          transform.columns.3.z)
             
             // Create 3D Text
-            if let node = self.interactor?.generateNode(with: latestPrediction,
-                                                        and: bubbleDepth) {
-                sceneView.scene.rootNode.addChildNode(node)
-                self.nodes.append(node)
+            self.interactor?.generateNode(with: latestPrediction, and: bubbleDepth, completion: { [weak self] (node) in
+                self?.sceneView.scene.rootNode.addChildNode(node)
+                self?.nodes.append(node)
                 node.position = worldCoord
-            }
+            })
         }
     }
     
@@ -153,15 +152,11 @@ class ScannerViewController: BaseViewController {
         // Get Classifications
         let classifications = observations[0...2] // top 3 results
             .compactMap({ $0 as? VNClassificationObservation })
-            .map({ "\($0.identifier) \(String(format:"- %.2f", $0.confidence))" })
+            .map({ "\($0.identifier) - \(self.convertToPercent($0.confidence));" })
             .joined(separator: "\n")
         
-        translateClassifications(classifications) { (translatedText) in
-            DispatchQueue.main.async { [weak self] in
-                // Print Classifications
-                //print(classifications)
-                //print("--")
-                
+        translateClassifications(classifications) { [weak self] (translatedText) in
+            DispatchQueue.main.async {
                 // Display Debug Text on screen
                 var debugText: String = ""
                 debugText += translatedText
@@ -177,11 +172,16 @@ class ScannerViewController: BaseViewController {
         }
     }
     
-    func translateClassifications(_ classifications: String, completed: @escaping (String) -> Void) {
+    fileprivate func convertToPercent(_ value: VNConfidence) -> String {
+        return "\(Int(value * 100))%"
+    }
+    
+    fileprivate func translateClassifications(_ classifications: String, completed: @escaping (String) -> Void) {
         if needToTranslate {
             TranslationsLoader.shared.translateText(classifications) { (translatedText) in
                 completed(translatedText)
             } failure: { (error) in
+                print("Error: \(error?.localizedDescription ?? "")")
                 completed(classifications)
             }
         }

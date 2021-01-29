@@ -13,7 +13,7 @@ protocol ScannerInputProtocol: class {
     
     var view: ScannerOutputProtocol? { get set }
     
-    func generateNode(with text: String, and depth: Float) -> SCNNode
+    func generateNode(with text: String, and depth: Float, completion: @escaping (SCNNode) -> Void)
     
     func getSavedModel() -> VNCoreMLModel?
     
