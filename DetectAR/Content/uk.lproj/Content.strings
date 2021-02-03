@@ -15,7 +15,7 @@
 "MuM-5y-YKN.text" = "Debug-інформація";
 
 /* Class = "UIButton"; normalTitle = "Undo"; ObjectID = "UBx-Ur-PYI"; */
-"UBx-Ur-PYI.normalTitle" = "Відмінити";
+"UBx-Ur-PYI.normalTitle" = "Скасувати";
 
 /* Class = "UILabel"; text = "Detect"; ObjectID = "a48-hX-k8J"; */
 "a48-hX-k8J.text" = "Detect";

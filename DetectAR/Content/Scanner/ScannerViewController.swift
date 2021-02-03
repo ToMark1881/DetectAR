@@ -37,7 +37,7 @@ class ScannerViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.isShowing = true
-        if (self.interactor?.isTranslationEnabled() == true) && (TranslationsLoader.shared.isModelAlredayAvailable() && ApplicationLanguage.currentLanguage != .english) {
+        if (self.interactor?.isTranslationEnabled() == true) && (TranslationsLoader.shared.isModelAlreadyAvailable() && ApplicationLanguage.currentLanguage != .english) {
             self.needToTranslate = true
         }
         else {

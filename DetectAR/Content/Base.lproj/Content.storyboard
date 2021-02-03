@@ -415,7 +415,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvj-y8-29T" userLabel="Main View">
                                 <rect key="frame" x="16" y="601.66666666666663" width="382" height="110.33333333333337"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="m7q-0l-wAs">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="m7q-0l-wAs">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="110.33333333333333"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="alpha">
@@ -449,11 +449,11 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UBx-Ur-PYI" customClass="BigBounceButton" customModule="DetectAR" customModuleProvider="target">
-                                <rect key="frame" x="16" y="541.66666666666663" width="114" height="44"/>
+                                <rect key="frame" x="16" y="533.66666666666663" width="122" height="52"/>
                                 <color key="backgroundColor" name="Accent"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="114" id="9r2-oi-8yN"/>
-                                    <constraint firstAttribute="height" constant="44" id="OVf-bx-hh9"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="122" id="9r2-oi-8yN"/>
+                                    <constraint firstAttribute="height" constant="52" id="OVf-bx-hh9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Undo">
@@ -461,7 +461,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="22"/>
+                                        <real key="value" value="26"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                         <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>

@@ -17,7 +17,7 @@ class TranslationsLoader {
     
     private init() {}
     
-    func isModelAlredayAvailable() -> Bool {
+    func isModelAlreadyAvailable() -> Bool {
         let currentLanguage = ApplicationLanguage.currentLanguage
         var targetLanguage: TranslateLanguage!
         

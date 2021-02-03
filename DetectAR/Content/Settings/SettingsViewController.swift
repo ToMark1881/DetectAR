@@ -50,7 +50,7 @@ class SettingsViewController: BaseViewController {
     }
     
     fileprivate func setupLanguageModels() {
-        if TranslationsLoader.shared.isModelAlredayAvailable() {
+        if TranslationsLoader.shared.isModelAlreadyAvailable() {
             self.translationsSwitch.isOn = true
             self.interactor?.setTranslations(true)
             return
