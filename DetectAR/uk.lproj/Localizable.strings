@@ -12,3 +12,8 @@
 "Download" = "Завантажити";
 "Cancel" = "Закрити";
 "Error" = "Помилка";
+"Point the camera at an object. The application will try to recognize it" = "Наведіть камеру на предмет. Програма спробує його розпізнати";
+"This field contains the name of the intended object that the camera sees" = "Це поле містить назву передбачуваного об’єкта, який бачить камера";
+"Tap on an object to add a sticker on it" = "Натисніть на предмет, щоб додати на нього наклейку";
+"You can remove the last sticker by clicking on this button" = "Ви можете видалити останню наклейку, натиснувши на цю кнопку";
+"Ok" = "Ок";

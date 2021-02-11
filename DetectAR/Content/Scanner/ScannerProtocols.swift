@@ -23,6 +23,10 @@ protocol ScannerInputProtocol: class {
     
     func isDebugEnabled() -> Bool
     
+    func isTutorialEnabled() -> Bool
+    
+    func setTutorial(_ value: Bool)
+    
 }
 
 protocol ScannerOutputProtocol: class {

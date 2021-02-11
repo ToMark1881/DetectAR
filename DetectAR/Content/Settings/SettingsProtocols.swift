@@ -25,6 +25,8 @@ protocol SettingsInputProtocol: class {
     
     func setDebug(_ value: Bool)
     
+    func setTutorial(_ value: Bool)
+    
 }
 
 protocol SettingsOutputProtocol: class {

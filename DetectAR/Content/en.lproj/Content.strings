@@ -34,3 +34,6 @@
 
 /* Class = "UILabel"; text = "Select ML Model:"; ObjectID = "wTM-cZ-WA0"; */
 "wTM-cZ-WA0.text" = "Select ML Model:";
+
+/* Class = "UIButton"; normalTitle = "Reset Tutorial"; ObjectID = "ogd-zv-KNx"; */
+"ogd-zv-KNx.normalTitle" = "Reset Tutorial";

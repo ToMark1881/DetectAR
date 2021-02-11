@@ -12,3 +12,8 @@
 "Download" = "Загрузить";
 "Cancel" = "Закрыть";
 "Error" = "Ошибка";
+"Point the camera at an object. The application will try to recognize it" = "Наведите камеру на объект. Приложение попытается его распознать";
+"This field contains the name of the intended object that the camera sees" = "Это поле содержит название предполагаемого объекта, который видит камера.";
+"Tap on an object to add a sticker on it" = "Тапните на объект чтоб добавить наклейку на него";
+"You can remove the last sticker by clicking on this button" = "Вы можете удалить последнюю наклейку, нажав на эту кнопку";
+"Ok" = "Ок";

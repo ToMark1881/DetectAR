@@ -15,6 +15,7 @@ class SettingsViewController: BaseViewController {
     @IBOutlet weak var modelsTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var debugSwitch: UISwitch!
     @IBOutlet weak var translationsSwitch: UISwitch!
+    @IBOutlet weak var resetTutorial: UIButton!
     
     fileprivate let cellId = "MLModelTableViewCell"
     fileprivate var mlModels: [Model]?
@@ -47,6 +48,10 @@ class SettingsViewController: BaseViewController {
                 self.interactor?.setTranslations(isOn)
             }
         }
+    }
+    
+    @IBAction func didTapOnResetTutorialButton(_ sender: Any) {
+        self.interactor?.setTutorial(false)
     }
     
     fileprivate func setupLanguageModels() {

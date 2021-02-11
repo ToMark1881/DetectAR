@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -68,6 +68,7 @@
 		7DF8B4E325C1E6AB008663A8 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8B4E225C1E6AB008663A8 /* StorageService.swift */; };
 		7DF8B4E825C1E6B9008663A8 /* StorageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8B4E725C1E6B9008663A8 /* StorageAPIService.swift */; };
 		7DF8B4F025C1F5B0008663A8 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8B4EF25C1F5B0008663A8 /* Bundle+Extensions.swift */; };
+		7DFE80EA25D5BF6400D609AE /* Instructions in Frameworks */ = {isa = PBXBuildFile; productRef = 7DFE80E925D5BF6400D609AE /* Instructions */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62FC37C09C285D8DCF09CE29 /* Pods_DetectAR.framework in Frameworks */,
+				7DFE80EA25D5BF6400D609AE /* Instructions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +472,9 @@
 			dependencies = (
 			);
 			name = DetectAR;
+			packageProductDependencies = (
+				7DFE80E925D5BF6400D609AE /* Instructions */,
+			);
 			productName = DetectAR;
 			productReference = 7DF329B92548894C00CD7E7A /* DetectAR.app */;
 			productType = "com.apple.product-type.application";
@@ -543,6 +548,9 @@
 				uk,
 			);
 			mainGroup = 7DF329B02548894C00CD7E7A;
+			packageReferences = (
+				7DFE80E825D5BF6400D609AE /* XCRemoteSwiftPackageReference "Instructions" */,
+			);
 			productRefGroup = 7DF329BA2548894C00CD7E7A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -894,7 +902,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 839QV4DU65;
 				INFOPLIST_FILE = DetectAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -906,7 +914,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = tomark.DetectAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -917,7 +925,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 839QV4DU65;
 				INFOPLIST_FILE = DetectAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -929,7 +937,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = tomark.DetectAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1057,6 +1065,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7DFE80E825D5BF6400D609AE /* XCRemoteSwiftPackageReference "Instructions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ephread/Instructions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7DFE80E925D5BF6400D609AE /* Instructions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DFE80E825D5BF6400D609AE /* XCRemoteSwiftPackageReference "Instructions" */;
+			productName = Instructions;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7DF329B12548894C00CD7E7A /* Project object */;
 }

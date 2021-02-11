@@ -28,10 +28,14 @@ protocol StorageAPIInterface: class {
     
     func isDebugEnabled() -> Bool
     
+    func isTutorialEnabled() -> Bool
+    
     func setTranslations(_ value: Bool)
     
     func setDebug(_ value: Bool)
     
+    func setTutorial(_ value: Bool)
+        
 }
 
 protocol TranslationsAPIInterface: class {

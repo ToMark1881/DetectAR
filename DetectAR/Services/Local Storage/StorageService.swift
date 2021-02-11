@@ -19,12 +19,20 @@ class StorageSerice: BaseService {
         return self.api?.isDebugEnabled() ?? false
     }
     
+    func isTutorialEnabled() -> Bool {
+        return self.api?.isTutorialEnabled() ?? false
+    }
+    
     func setTranslations(_ value: Bool) {
         self.api?.setTranslations(value)
     }
     
     func setDebug(_ value: Bool) {
         self.api?.setDebug(value)
+    }
+    
+    func setTutorial(_ value: Bool) {
+        self.api?.setTutorial(value)
     }
     
 }

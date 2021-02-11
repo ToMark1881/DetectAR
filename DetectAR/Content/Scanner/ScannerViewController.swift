@@ -9,6 +9,7 @@ import UIKit
 import SceneKit
 import ARKit
 import Vision
+import Instructions
 
 class ScannerViewController: BaseViewController {
     
@@ -16,6 +17,9 @@ class ScannerViewController: BaseViewController {
     
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var debugTextView: UITextView!
+    @IBOutlet weak var centerView: UIView!
+    @IBOutlet weak var undoButton: BigBounceButton!
+    fileprivate lazy var coachMarksController = { return CoachMarksController() }()
     
     // SCENE
     fileprivate let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
@@ -27,11 +31,14 @@ class ScannerViewController: BaseViewController {
     // COREML
     fileprivate var visionRequests = [VNRequest]()
     fileprivate let dispatchQueueML = DispatchQueue(label: "com.tomark.dispatchqueueml") // A Serial Queue
-        
+    fileprivate let coachMarks: [String] = ["Point the camera at an object. The application will try to recognize it".localized, "This field contains the name of the intended object that the camera sees".localized, "Tap on an object to add a sticker on it".localized, "You can remove the last sticker by clicking on this button".localized]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupScene()
         self.addTapRecognizer()
+        self.coachMarksController.dataSource = self
+        self.coachMarksController.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,12 +58,18 @@ class ScannerViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         self.setModel()
         self.setupSceneInformation()
+        if self.interactor?.isTutorialEnabled() == false {
+            self.coachMarksController.start(in: .window(over: self))
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
         sceneView.scene.rootNode.childNodes.forEach({ $0.removeFromParentNode() })
+        if self.interactor?.isTutorialEnabled() == false {
+            self.coachMarksController.stop(immediately: true)
+        }
         self.isShowing = false
     }
     
@@ -193,5 +206,51 @@ class ScannerViewController: BaseViewController {
 
 // MARK: - ScannerOutputProtocol
 extension ScannerViewController: ScannerOutputProtocol {
+    
+}
+
+extension ScannerViewController: CoachMarksControllerDelegate,
+                                 CoachMarksControllerDataSource {
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(
+            withArrow: true,
+            arrowOrientation: coachMark.arrowOrientation
+        )
+        
+        coachViews.bodyView.hintLabel.text = self.coachMarks[index]
+        coachViews.bodyView.nextLabel.text = "Ok".localized
+        
+        coachViews.bodyView.hintLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
+        coachViews.bodyView.nextLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 16)
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+    }
+    
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        switch index {
+        case 0:
+            return coachMarksController.helper.makeCoachMark(for: centerView)
+        case 1:
+            return coachMarksController.helper.makeCoachMark(for: debugTextView)
+        case 2:
+            return coachMarksController.helper.makeCoachMark(for: centerView)
+        case 3:
+            return coachMarksController.helper.makeCoachMark(for: undoButton)
+        default:
+            return coachMarksController.helper.makeCoachMark(for: centerView)
+        }
+    }
+    
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return coachMarks.count
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, didShow coachMark: CoachMark, afterChanging change: ConfigurationChange, at index: Int) {
+        self.interactor?.setTutorial(true)
+    }
+    
     
 }

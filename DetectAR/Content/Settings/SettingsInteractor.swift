@@ -35,6 +35,12 @@ extension SettingsInteractor: SettingsInputProtocol {
         }
     }
     
+    func setTutorial(_ value: Bool) {
+        DispatchQueue.global(qos: .background).async {
+            self.servicesContainer.storageService.setTutorial(value)
+        }
+    }
+    
     func getAvailableModels() {
         DispatchQueue.global(qos: .background).async {
             self.servicesContainer.mlService.getAvailableModels { [weak self] (models) in

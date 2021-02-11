@@ -12,3 +12,8 @@
 "Download" = "Download";
 "Cancel" = "Cancel";
 "Error" = "Error";
+"Point the camera at an object. The application will try to recognize it" = "Point the camera at an object. The application will try to recognize it";
+"This field contains the name of the intended object that the camera sees" = "This field contains the name of the intended object that the camera sees";
+"Tap on an object to add a sticker on it" = "Tap on an object to add a sticker on it";
+"You can remove the last sticker by clicking on this button" = "You can remove the last sticker by clicking on this button";
+"Ok" = "Ok";

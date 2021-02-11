@@ -25,6 +25,14 @@ extension ScannerInteractor: ScannerInputProtocol {
         return self.servicesContainer.storageService.isDebugEnabled()
     }
     
+    func isTutorialEnabled() -> Bool {
+        return self.servicesContainer.storageService.isTutorialEnabled()
+    }
+    
+    func setTutorial(_ value: Bool) {
+        self.servicesContainer.storageService.setTutorial(value)
+    }
+    
     func updateCoreML(scene: ARSCNView, visionRequests: [VNRequest]) {
         ///////////////////////////
         // Get Camera Image as RGB
