@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  DetectAR
+
+  Created by Vladyslav Vdovychenko on 12.02.2021.
+  
+*/
+
+NSCameraUsageDescription = "Дозвольте доступ до камери, щоб програма могла сканувати об’єкти";

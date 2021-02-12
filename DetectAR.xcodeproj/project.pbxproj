@@ -14,6 +14,7 @@
 		7D03DED325C30EAA004FAAE9 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D03DED125C30EA9004FAAE9 /* Array+Extensions.swift */; };
 		7D03DED425C30EAA004FAAE9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D03DED225C30EAA004FAAE9 /* String+Extensions.swift */; };
 		7D03DED925C30ECE004FAAE9 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D03DED825C30ECE004FAAE9 /* UITextField+Extensions.swift */; };
+		7D13357325D6B9770082B69F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D13357525D6B9770082B69F /* InfoPlist.strings */; };
 		7D1A2D7925BF5BF100C519FB /* MLModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2D7825BF5BF100C519FB /* MLModel.swift */; };
 		7D1A2D8125BF5D7300C519FB /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2D8025BF5D7300C519FB /* UITableView+Extensions.swift */; };
 		7D1A2D8625BF5E3E00C519FB /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A2D8525BF5E3E00C519FB /* Models.swift */; };
@@ -96,6 +97,9 @@
 		7D03DED125C30EA9004FAAE9 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		7D03DED225C30EAA004FAAE9 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		7D03DED825C30ECE004FAAE9 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		7D13357425D6B9770082B69F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7D13357925D6B97A0082B69F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7D13357D25D6B97B0082B69F /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7D1A2D7825BF5BF100C519FB /* MLModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLModel.swift; sourceTree = "<group>"; };
 		7D1A2D8025BF5D7300C519FB /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		7D1A2D8525BF5E3E00C519FB /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -404,6 +408,7 @@
 				7DF329C72548894C00CD7E7A /* LaunchScreen.storyboard */,
 				7D8BECC125C3331D00D01B3D /* Localizable.strings */,
 				7DF329CA2548894C00CD7E7A /* Info.plist */,
+				7D13357525D6B9770082B69F /* InfoPlist.strings */,
 				7D889470254D906700F3387A /* Logger */,
 			);
 			path = DetectAR;
@@ -568,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DF329BF2548894C00CD7E7A /* art.scnassets in Resources */,
+				7D13357325D6B9770082B69F /* InfoPlist.strings in Resources */,
 				7D8BECBF25C3331D00D01B3D /* Localizable.strings in Resources */,
 				7DF329C92548894C00CD7E7A /* LaunchScreen.storyboard in Resources */,
 				7DF329C62548894C00CD7E7A /* Assets.xcassets in Resources */,
@@ -743,6 +749,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		7D13357525D6B9770082B69F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7D13357425D6B9770082B69F /* en */,
+				7D13357925D6B97A0082B69F /* ru */,
+				7D13357D25D6B97B0082B69F /* uk */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		7D8BECC125C3331D00D01B3D /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -902,7 +918,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 839QV4DU65;
 				INFOPLIST_FILE = DetectAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -925,7 +941,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 839QV4DU65;
 				INFOPLIST_FILE = DetectAR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
