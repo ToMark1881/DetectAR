@@ -15,6 +15,10 @@ class SettingsInteractor: BaseInteractor {
 
 extension SettingsInteractor: SettingsInputProtocol {
     
+    func getNumberOfSuggestions() -> Int {
+        return self.servicesContainer.storageService.getNumberOfSuggestions() 
+    }
+    
     func isTranslationEnabled() -> Bool {
         return self.servicesContainer.storageService.isTranslationEnabled()
     }
@@ -38,6 +42,12 @@ extension SettingsInteractor: SettingsInputProtocol {
     func setTutorial(_ value: Bool) {
         DispatchQueue.global(qos: .background).async {
             self.servicesContainer.storageService.setTutorial(value)
+        }
+    }
+    
+    func setNumberOfSuggestions(_ value: Int) {
+        DispatchQueue.global(qos: .background).async {
+            self.servicesContainer.storageService.setNumberOfSuggestions(value)
         }
     }
     

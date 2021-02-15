@@ -17,6 +17,9 @@
 /* Class = "UIButton"; normalTitle = "Undo"; ObjectID = "UBx-Ur-PYI"; */
 "UBx-Ur-PYI.normalTitle" = "Undo";
 
+/* Class = "UIButton"; normalTitle = "Clear All"; ObjectID = "ooE-eP-b2c"; */
+"ooE-eP-b2c.normalTitle" = "Clear All";
+
 /* Class = "UILabel"; text = "Detect"; ObjectID = "a48-hX-k8J"; */
 "a48-hX-k8J.text" = "Detect";
 
@@ -37,3 +40,6 @@
 
 /* Class = "UIButton"; normalTitle = "Reset Tutorial"; ObjectID = "ogd-zv-KNx"; */
 "ogd-zv-KNx.normalTitle" = "Reset Tutorial";
+
+/* Class = "UILabel"; text = "Suggestions:"; ObjectID = "lKl-5p-le7"; */
+"lKl-5p-le7.text" = "Suggestions:";

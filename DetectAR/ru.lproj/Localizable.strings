@@ -17,3 +17,6 @@
 "Tap on an object to add a sticker on it" = "Тапните на объект чтоб добавить наклейку на него";
 "You can remove the last sticker by clicking on this button" = "Вы можете удалить последнюю наклейку, нажав на эту кнопку";
 "Ok" = "Ок";
+"Number of suggestions" = "Количество предположений";
+"You can remove the all stickers by clicking on this button" = "Вы можете удалить все наклейки, нажав на эту кнопку";
+"The object will be named by the first name from the list" = "Объект будет назван первым наименованием из списка";

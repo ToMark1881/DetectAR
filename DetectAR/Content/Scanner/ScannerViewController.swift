@@ -18,20 +18,28 @@ class ScannerViewController: BaseViewController {
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var debugTextView: UITextView!
     @IBOutlet weak var centerView: UIView!
+    @IBOutlet weak var clearAllButton: BigBounceButton!
     @IBOutlet weak var undoButton: BigBounceButton!
+    @IBOutlet weak var suggestionsView: UIView!
     fileprivate lazy var coachMarksController = { return CoachMarksController() }()
     
-    // SCENE
+    // MARK:- SCENE
     fileprivate let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
     fileprivate var latestPrediction: String = "" // a variable containing the latest CoreML prediction
     fileprivate var isShowing: Bool = true
     fileprivate var needToTranslate: Bool = false
     fileprivate var nodes = [SCNNode]()
     
-    // COREML
+    // MARK:- COREML
     fileprivate var visionRequests = [VNRequest]()
     fileprivate let dispatchQueueML = DispatchQueue(label: "com.tomark.dispatchqueueml") // A Serial Queue
-    fileprivate let coachMarks: [String] = ["Point the camera at an object. The application will try to recognize it".localized, "This field contains the name of the intended object that the camera sees".localized, "Tap on an object to add a sticker on it".localized, "You can remove the last sticker by clicking on this button".localized]
+    
+    fileprivate let coachMarks: [String] = ["Point the camera at an object. The application will try to recognize it".localized,
+                                            "This field contains the name of the intended object that the camera sees".localized,
+                                            "Tap on an object to add a sticker on it".localized,
+                                            "The object will be named by the first name from the list".localized,
+                                            "You can remove the last sticker by clicking on this button".localized,
+                                            "You can remove the all stickers by clicking on this button".localized]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,11 +74,15 @@ class ScannerViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
-        sceneView.scene.rootNode.childNodes.forEach({ $0.removeFromParentNode() })
+        self.clearAllNodes()
         if self.interactor?.isTutorialEnabled() == false {
             self.coachMarksController.stop(immediately: true)
         }
         self.isShowing = false
+    }
+    
+    @IBAction func didTapOnClearAllButton(_ sender: Any) {
+        self.clearAllNodes()
     }
     
     @IBAction func didTapOnUndoButton(_ sender: Any) {
@@ -84,6 +96,10 @@ class ScannerViewController: BaseViewController {
         let scene = SCNScene()
         sceneView.scene = scene
         sceneView.autoenablesDefaultLighting = true
+    }
+    
+    fileprivate func clearAllNodes() {
+        sceneView.scene.rootNode.childNodes.forEach({ $0.removeFromParentNode() })
     }
     
     fileprivate func setupSceneInformation() {
@@ -162,8 +178,13 @@ class ScannerViewController: BaseViewController {
             return
         }
         
+        guard let numberOfSuggestions = self.interactor?.getSuggestionNumber() else {
+            print("No suggestion number")
+            return
+        }
+        
         // Get Classifications
-        let classifications = observations[0...2] // top 3 results
+        let classifications = observations[0...(numberOfSuggestions - 1)] // top 3 results
             .compactMap({ $0 as? VNClassificationObservation })
             .map({ "\($0.identifier) - \(self.convertToPercent($0.confidence));" })
             .joined(separator: "\n")
@@ -231,13 +252,17 @@ extension ScannerViewController: CoachMarksControllerDelegate,
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
         switch index {
         case 0:
-            return coachMarksController.helper.makeCoachMark(for: centerView)
+            return coachMarksController.helper.makeCoachMark(for: centerView) // point camera
         case 1:
-            return coachMarksController.helper.makeCoachMark(for: debugTextView)
+            return coachMarksController.helper.makeCoachMark(for: suggestionsView) // field with suggestions
         case 2:
-            return coachMarksController.helper.makeCoachMark(for: centerView)
+            return coachMarksController.helper.makeCoachMark(for: centerView) // add sticker
         case 3:
-            return coachMarksController.helper.makeCoachMark(for: undoButton)
+            return coachMarksController.helper.makeCoachMark(for: suggestionsView) // when click suggestion
+        case 4:
+            return coachMarksController.helper.makeCoachMark(for: undoButton) // remove last sticker
+        case 5:
+            return coachMarksController.helper.makeCoachMark(for: clearAllButton) // remove all stickers
         default:
             return coachMarksController.helper.makeCoachMark(for: centerView)
         }

@@ -30,11 +30,15 @@ protocol StorageAPIInterface: class {
     
     func isTutorialEnabled() -> Bool
     
+    func getNumberOfSuggestions() -> Int
+    
     func setTranslations(_ value: Bool)
     
     func setDebug(_ value: Bool)
     
     func setTutorial(_ value: Bool)
+    
+    func setNumberOfSuggestions(_ value: Int)
         
 }
 

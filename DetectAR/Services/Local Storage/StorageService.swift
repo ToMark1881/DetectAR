@@ -23,6 +23,10 @@ class StorageSerice: BaseService {
         return self.api?.isTutorialEnabled() ?? false
     }
     
+    func getNumberOfSuggestions() -> Int {
+        return self.api?.getNumberOfSuggestions() ?? 1
+    }
+    
     func setTranslations(_ value: Bool) {
         self.api?.setTranslations(value)
     }
@@ -34,5 +38,10 @@ class StorageSerice: BaseService {
     func setTutorial(_ value: Bool) {
         self.api?.setTutorial(value)
     }
+    
+    func setNumberOfSuggestions(_ value: Int) {
+        self.api?.setNumberOfSuggestions(value)
+    }
+    
     
 }

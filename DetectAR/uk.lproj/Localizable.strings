@@ -15,5 +15,8 @@
 "Point the camera at an object. The application will try to recognize it" = "Наведіть камеру на предмет. Програма спробує його розпізнати";
 "This field contains the name of the intended object that the camera sees" = "Це поле містить назву передбачуваного об’єкта, який бачить камера";
 "Tap on an object to add a sticker on it" = "Натисніть на предмет, щоб додати на нього наклейку";
-"You can remove the last sticker by clicking on this button" = "Ви можете видалити останню наклейку, натиснувши на цю кнопку";
+"You can remove the last sticker by clicking on this button" = "Ви можете видалити останню наліпку, натиснувши на цю кнопку";
 "Ok" = "Ок";
+"Number of suggestions" = "Кількість припущень";
+"You can remove the all stickers by clicking on this button" = "Ви можете видалити всі наліпки, натиснувши на цю кнопку";
+"The object will be named by the first name from the list" = "Об'єкт буде названий першим найменуванням зі списку";

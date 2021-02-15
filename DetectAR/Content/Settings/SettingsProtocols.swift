@@ -19,6 +19,8 @@ protocol SettingsInputProtocol: class {
     
     func isTranslationEnabled() -> Bool
     
+    func getNumberOfSuggestions() -> Int
+    
     func isDebugEnabled() -> Bool
     
     func setTranslations(_ value: Bool)
@@ -26,6 +28,8 @@ protocol SettingsInputProtocol: class {
     func setDebug(_ value: Bool)
     
     func setTutorial(_ value: Bool)
+    
+    func setNumberOfSuggestions(_ value: Int)
     
 }
 

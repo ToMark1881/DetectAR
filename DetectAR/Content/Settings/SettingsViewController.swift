@@ -16,6 +16,8 @@ class SettingsViewController: BaseViewController {
     @IBOutlet weak var debugSwitch: UISwitch!
     @IBOutlet weak var translationsSwitch: UISwitch!
     @IBOutlet weak var resetTutorial: UIButton!
+    @IBOutlet weak var numberOfClassificationLabel: UILabel!
+    @IBOutlet weak var numberOfClassificationStepper: UIStepper!
     
     fileprivate let cellId = "MLModelTableViewCell"
     fileprivate var mlModels: [Model]?
@@ -31,6 +33,8 @@ class SettingsViewController: BaseViewController {
     fileprivate func setSwitches() {
         self.debugSwitch.isOn = self.interactor?.isDebugEnabled() ?? false
         self.translationsSwitch.isOn = self.interactor?.isTranslationEnabled() ?? false
+        let numberOfSuggestions = self.interactor?.getNumberOfSuggestions() ?? 1
+        self.numberOfClassificationLabel.text = "Number of suggestions".localized + ": \(numberOfSuggestions)"
     }
     
     @IBAction func didChangeDebugSwitch(_ sender: Any) {
@@ -52,6 +56,13 @@ class SettingsViewController: BaseViewController {
     
     @IBAction func didTapOnResetTutorialButton(_ sender: Any) {
         self.interactor?.setTutorial(false)
+    }
+    
+    @IBAction func didChangedNumberOfClassification(_ sender: UIStepper) {
+        let value = Int(sender.value)
+        self.numberOfClassificationLabel.text = "Number of suggestions".localized + ": \(value)"
+        self.interactor?.setNumberOfSuggestions(value)
+        TapticEngineGenerator.shared.generateFeedback(.light)
     }
     
     fileprivate func setupLanguageModels() {

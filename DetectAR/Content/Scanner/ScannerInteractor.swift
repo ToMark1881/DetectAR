@@ -33,6 +33,10 @@ extension ScannerInteractor: ScannerInputProtocol {
         self.servicesContainer.storageService.setTutorial(value)
     }
     
+    func getSuggestionNumber() -> Int {
+        return self.servicesContainer.storageService.getNumberOfSuggestions()
+    }
+    
     func updateCoreML(scene: ARSCNView, visionRequests: [VNRequest]) {
         ///////////////////////////
         // Get Camera Image as RGB

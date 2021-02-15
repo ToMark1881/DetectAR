@@ -27,6 +27,7 @@ protocol ScannerInputProtocol: class {
     
     func setTutorial(_ value: Bool)
     
+    func getSuggestionNumber() -> Int
 }
 
 protocol ScannerOutputProtocol: class {
