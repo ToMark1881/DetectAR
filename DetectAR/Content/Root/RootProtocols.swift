@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol RootInputProtocol: class {
+protocol RootInputProtocol: AnyObject {
     
     var view: RootOutputProtocol? { get set }
 }
 
-protocol RootOutputProtocol: class {
+protocol RootOutputProtocol: AnyObject {
     
     var interactor: RootInputProtocol? { get set }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import MLKitTranslate
 
-protocol MLAPIInterface: class {
+protocol MLAPIInterface: AnyObject {
     
     func saveSelectedMLModel(_ model: MLModelType)
     
@@ -18,11 +18,11 @@ protocol MLAPIInterface: class {
     
 }
 
-protocol ARKitAPIInterface: class {
+protocol ARKitAPIInterface: AnyObject {
     
 }
 
-protocol StorageAPIInterface: class {
+protocol StorageAPIInterface: AnyObject {
     
     func isTranslationEnabled() -> Bool
     
@@ -42,7 +42,7 @@ protocol StorageAPIInterface: class {
         
 }
 
-protocol TranslationsAPIInterface: class {
+protocol TranslationsAPIInterface: AnyObject {
     
     
     

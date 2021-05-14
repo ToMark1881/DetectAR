@@ -9,7 +9,7 @@ import Foundation
 import ARKit
 import CoreML
 
-protocol ScannerInputProtocol: class {
+protocol ScannerInputProtocol: AnyObject {
     
     var view: ScannerOutputProtocol? { get set }
     
@@ -30,7 +30,7 @@ protocol ScannerInputProtocol: class {
     func getSuggestionNumber() -> Int
 }
 
-protocol ScannerOutputProtocol: class {
+protocol ScannerOutputProtocol: AnyObject {
     
     var interactor: ScannerInputProtocol? { get set }
         

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SettingsInputProtocol: class {
+protocol SettingsInputProtocol: AnyObject {
     
     var view: SettingsOutputProtocol? { get set }
     
@@ -33,7 +33,7 @@ protocol SettingsInputProtocol: class {
     
 }
 
-protocol SettingsOutputProtocol: class {
+protocol SettingsOutputProtocol: AnyObject {
     
     var interactor: SettingsInputProtocol? { get set }
     

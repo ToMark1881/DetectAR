@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol MainMenuInputProtocol: class {
+protocol MainMenuInputProtocol: AnyObject {
     
     var view: MainMenuOutputProtocol? { get set }
 }
 
-protocol MainMenuOutputProtocol: class {
+protocol MainMenuOutputProtocol: AnyObject {
     
     var interactor: MainMenuInputProtocol? { get set }
 }
