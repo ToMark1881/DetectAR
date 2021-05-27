@@ -17,6 +17,21 @@ class ScannerInteractor: BaseInteractor {
 
 extension ScannerInteractor: ScannerInputProtocol {
     
+    func getWorldCoordinateForNode(_ scene: ARSCNView, tapCoordinate: CGPoint) -> SCNVector3? {
+        let arHitTestResults: [ARHitTestResult] = scene.hitTest(tapCoordinate,
+                                                                    types: [.featurePoint])
+        if let closestResult = arHitTestResults.first {
+            // Get Coordinates of HitTest
+            let transform : matrix_float4x4 = closestResult.worldTransform
+            let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x,
+                                                         transform.columns.3.y,
+                                                         transform.columns.3.z)
+            return worldCoord
+            
+        }
+        return nil
+    }
+    
     func isTranslationEnabled() -> Bool {
         return self.servicesContainer.storageService.isTranslationEnabled()
     }

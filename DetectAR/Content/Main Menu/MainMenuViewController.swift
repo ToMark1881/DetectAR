@@ -53,9 +53,6 @@ class MainMenuViewController: BaseViewController {
             self?.animateTitle(!isShowed)
         }
     }
-    
 }
 
-extension MainMenuViewController: MainMenuOutputProtocol {
-    
-}
+extension MainMenuViewController: MainMenuOutputProtocol { }

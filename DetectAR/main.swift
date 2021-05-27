@@ -19,7 +19,5 @@ let argc = CommandLine.argc
 
 // start the main loop
 //UIApplicationMain(argc, argv, nil, NSStringFromClass(AppDelegate.self))
- UIApplicationMain(
-    argc, CommandLine.unsafeArgv,
-    nil, NSStringFromClass(AppDelegate.self)
-)
+ UIApplicationMain(argc, CommandLine.unsafeArgv,
+                   nil, NSStringFromClass(AppDelegate.self))

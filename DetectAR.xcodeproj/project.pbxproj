@@ -58,6 +58,8 @@
 		7DB6EF7725BEDFA3005ADB93 /* MainMenuWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6EF7625BEDFA3005ADB93 /* MainMenuWireframe.swift */; };
 		7DB6EF7C25BEDFAB005ADB93 /* MainMenuProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6EF7B25BEDFAB005ADB93 /* MainMenuProtocols.swift */; };
 		7DB6EF8125BEDFB2005ADB93 /* MainMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB6EF8025BEDFB2005ADB93 /* MainMenuInteractor.swift */; };
+		7DEDD2D8265FA7350036C9CE /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD2D7265FA7350036C9CE /* Classification.swift */; };
+		7DEDD2DA265FB3830036C9CE /* ScannerCoachMarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEDD2D9265FB3830036C9CE /* ScannerCoachMarks.swift */; };
 		7DF329BD2548894C00CD7E7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF329BC2548894C00CD7E7A /* AppDelegate.swift */; };
 		7DF329BF2548894C00CD7E7A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DF329BE2548894C00CD7E7A /* art.scnassets */; };
 		7DF329C12548894C00CD7E7A /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF329C02548894C00CD7E7A /* ScannerViewController.swift */; };
@@ -150,6 +152,8 @@
 		7DB6EF7625BEDFA3005ADB93 /* MainMenuWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuWireframe.swift; sourceTree = "<group>"; };
 		7DB6EF7B25BEDFAB005ADB93 /* MainMenuProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuProtocols.swift; sourceTree = "<group>"; };
 		7DB6EF8025BEDFB2005ADB93 /* MainMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuInteractor.swift; sourceTree = "<group>"; };
+		7DEDD2D7265FA7350036C9CE /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
+		7DEDD2D9265FB3830036C9CE /* ScannerCoachMarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCoachMarks.swift; sourceTree = "<group>"; };
 		7DF329B92548894C00CD7E7A /* DetectAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DetectAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DF329BC2548894C00CD7E7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DF329BE2548894C00CD7E7A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -272,6 +276,8 @@
 				7D889432254D8DCA00F3387A /* ScannerWireframe.swift */,
 				7D88943A254D8DD000F3387A /* ScannerInteractor.swift */,
 				7D88943F254D8DD700F3387A /* ScannerProtocols.swift */,
+				7DEDD2D7265FA7350036C9CE /* Classification.swift */,
+				7DEDD2D9265FB3830036C9CE /* ScannerCoachMarks.swift */,
 			);
 			path = Scanner;
 			sourceTree = "<group>";
@@ -688,6 +694,7 @@
 				7D25443E254DBD63005C5D2D /* ARKitService.swift in Sources */,
 				7D889445254D8DE700F3387A /* BaseInteractor.swift in Sources */,
 				7DB6EF6425BEDF68005ADB93 /* MainMenuViewController.swift in Sources */,
+				7DEDD2D8265FA7350036C9CE /* Classification.swift in Sources */,
 				7D65CC1425BF586000AB4C39 /* MLModelTableViewCell.swift in Sources */,
 				7D88946C254D906100F3387A /* Logger.swift in Sources */,
 				7DF8B4E825C1E6B9008663A8 /* StorageAPIService.swift in Sources */,
@@ -711,6 +718,7 @@
 				7D03DEC325C30B67004FAAE9 /* TranslationService.swift in Sources */,
 				7D03DED325C30EAA004FAAE9 /* Array+Extensions.swift in Sources */,
 				7D03DEC825C30B6F004FAAE9 /* TranslationAPIService.swift in Sources */,
+				7DEDD2DA265FB3830036C9CE /* ScannerCoachMarks.swift in Sources */,
 				7D65CC0325BF569900AB4C39 /* GradientView.swift in Sources */,
 				7D254438254DBCC7005C5D2D /* APIInterface.swift in Sources */,
 				7D88945D254D8E8F00F3387A /* BaseService.swift in Sources */,

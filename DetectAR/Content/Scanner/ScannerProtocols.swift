@@ -28,6 +28,8 @@ protocol ScannerInputProtocol: AnyObject {
     func setTutorial(_ value: Bool)
     
     func getSuggestionNumber() -> Int
+    
+    func getWorldCoordinateForNode(_ scene: ARSCNView, tapCoordinate: CGPoint) -> SCNVector3?
 }
 
 protocol ScannerOutputProtocol: AnyObject {
