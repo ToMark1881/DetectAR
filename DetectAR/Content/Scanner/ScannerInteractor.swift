@@ -20,54 +20,31 @@ extension ScannerInteractor: ScannerInputProtocol {
     func getWorldCoordinateForNode(_ scene: ARSCNView, tapCoordinate: CGPoint) -> SCNVector3? {
         let arHitTestResults: [ARHitTestResult] = scene.hitTest(tapCoordinate,
                                                                     types: [.featurePoint])
-        if let closestResult = arHitTestResults.first {
-            // Get Coordinates of HitTest
-            let transform : matrix_float4x4 = closestResult.worldTransform
+        if let topResult = arHitTestResults.first {
+            let transform : matrix_float4x4 = topResult.worldTransform
             let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x,
                                                          transform.columns.3.y,
                                                          transform.columns.3.z)
             return worldCoord
-            
         }
         return nil
     }
     
-    func isTranslationEnabled() -> Bool {
-        return self.servicesContainer.storageService.isTranslationEnabled()
-    }
+    func isTranslationEnabled() -> Bool { return self.servicesContainer.storageService.isTranslationEnabled() }
     
-    func isDebugEnabled() -> Bool {
-        return self.servicesContainer.storageService.isDebugEnabled()
-    }
+    func isDebugEnabled() -> Bool { return self.servicesContainer.storageService.isDebugEnabled() }
     
-    func isTutorialEnabled() -> Bool {
-        return self.servicesContainer.storageService.isTutorialEnabled()
-    }
+    func isTutorialEnabled() -> Bool { return self.servicesContainer.storageService.isTutorialEnabled() }
     
-    func setTutorial(_ value: Bool) {
-        self.servicesContainer.storageService.setTutorial(value)
-    }
+    func setTutorial(_ value: Bool) { self.servicesContainer.storageService.setTutorial(value) }
     
-    func getSuggestionNumber() -> Int {
-        return self.servicesContainer.storageService.getNumberOfSuggestions()
-    }
+    func getSuggestionNumber() -> Int { return self.servicesContainer.storageService.getNumberOfSuggestions() }
     
     func updateCoreML(scene: ARSCNView, visionRequests: [VNRequest]) {
-        ///////////////////////////
-        // Get Camera Image as RGB
-        let pixbuff : CVPixelBuffer? = (scene.session.currentFrame?.capturedImage)
-        if pixbuff == nil { return }
-        let ciImage = CIImage(cvPixelBuffer: pixbuff!)
-        // Note: Not entirely sure if the ciImage is being interpreted as RGB, but for now it works with the Inception model.
-        // Note2: Also uncertain if the pixelBuffer should be rotated before handing off to Vision (VNImageRequestHandler) - regardless, for now, it still works well with the Inception model.
-        
-        ///////////////////////////
-        // Prepare CoreML/Vision Request
-        let imageRequestHandler = VNImageRequestHandler(ciImage: ciImage, options: [:])
-        // let imageRequestHandler = VNImageRequestHandler(cgImage: cgImage!, orientation: myOrientation, options: [:]) // Alternatively; we can convert the above to an RGB CGImage and use that. Also UIInterfaceOrientation can inform orientation values.
-        
-        ///////////////////////////
-        // Run Image Request
+        let pixelbuff : CVPixelBuffer? = (scene.session.currentFrame?.capturedImage)
+        if pixelbuff == nil { return }
+        let image = CIImage(cvPixelBuffer: pixelbuff!)
+        let imageRequestHandler = VNImageRequestHandler(ciImage: image, options: [:])
         do {
             try imageRequestHandler.perform(visionRequests)
         } catch {
@@ -89,13 +66,11 @@ extension ScannerInteractor: ScannerInputProtocol {
     }
     
     func generateNode(with text: String, and depth: Float, completion: @escaping (SCNNode) -> Void) {
-        // Warning: Creating 3D Text is susceptible to crashing. To reduce chances of crashing; reduce number of polygons, letters, smoothness, etc.
         DispatchQueue.global(qos: .userInitiated).async {
-            // TEXT BILLBOARD CONSTRAINT
             let billboardConstraint = SCNBillboardConstraint()
             billboardConstraint.freeAxes = SCNBillboardAxis.Y
             
-            // BUBBLE-TEXT
+            // BUBBLE
             let bubble = SCNText(string: text, extrusionDepth: CGFloat(depth))
             var font = UIFont(name: "HelveticaNeue-Medium", size: 0.18)
             font = font?.withTraits(traits: .traitBold)
@@ -104,32 +79,27 @@ extension ScannerInteractor: ScannerInputProtocol {
             bubble.firstMaterial?.diffuse.contents = UIColor(named: "Accent")
             bubble.firstMaterial?.specular.contents = UIColor.white
             bubble.firstMaterial?.isDoubleSided = true
-            // bubble.flatness // setting this too low can cause crashes.
             bubble.chamferRadius = CGFloat(depth)
             
             // BUBBLE NODE
-            let (minBound, maxBound) = bubble.boundingBox
+            let (min, max) = bubble.boundingBox
             let bubbleNode = SCNNode(geometry: bubble)
-            // Centre Node - to Centre-Bottom point
-            bubbleNode.pivot = SCNMatrix4MakeTranslation( (maxBound.x - minBound.x)/2, minBound.y, depth/2)
-            // Reduce default text size
+            // CENTRE NODE
+            bubbleNode.pivot = SCNMatrix4MakeTranslation( (max.x - min.x)/2, min.y, depth/2)
             bubbleNode.scale = SCNVector3Make(0.2, 0.2, 0.2)
             
-            // CENTRE POINT NODE
             let sphere = SCNSphere(radius: 0.005)
             sphere.firstMaterial?.diffuse.contents = UIColor.red
             let sphereNode = SCNNode(geometry: sphere)
             DispatchQueue.main.async {
                 // BUBBLE PARENT NODE
-                let bubbleNodeParent = SCNNode()
-                bubbleNodeParent.addChildNode(bubbleNode)
-                bubbleNodeParent.addChildNode(sphereNode)
-                bubbleNodeParent.constraints = [billboardConstraint]
+                let parentBubbleNode = SCNNode()
+                parentBubbleNode.addChildNode(bubbleNode)
+                parentBubbleNode.addChildNode(sphereNode)
+                parentBubbleNode.constraints = [billboardConstraint]
                 
-                completion(bubbleNodeParent)
+                completion(parentBubbleNode)
             }
         }
-        
     }
-    
 }

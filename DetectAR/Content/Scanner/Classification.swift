@@ -22,19 +22,9 @@ class Classification {
     
     func classificationCompleteHandler(request: VNRequest, error: Error?, completed: @escaping ClassificatonCallback) {
         // Catch Errors
-        if error != nil {
-            print("Error: " + (error?.localizedDescription)!)
-            return
-        }
-        guard let observations = request.results else {
-            print("No results")
-            return
-        }
-        
-        guard let numberOfSuggestions = suggestionNumber else {
-            print("No suggestion number")
-            return
-        }
+        if error != nil { print("Error: " + (error?.localizedDescription)!); return }
+        guard let observations = request.results else { print("No results"); return }
+        guard let numberOfSuggestions = suggestionNumber else { print("No suggestion number"); return }
         
         // Get Classifications
         let classifications = observations[0...(numberOfSuggestions - 1)] // top 3 results
@@ -48,9 +38,7 @@ class Classification {
         }
     }
     
-    fileprivate func convertToPercent(_ value: VNConfidence) -> String {
-        return "\(Int(value * 100))%"
-    }
+    fileprivate func convertToPercent(_ value: VNConfidence) -> String { return "\(Int(value * 100))%" }
     
     fileprivate func translateClassifications(_ classifications: String, completed: @escaping (String) -> Void) {
         if isNeedToTranslate {
@@ -61,9 +49,6 @@ class Classification {
                 completed(classifications)
             }
         }
-        else {
-            completed(classifications)
-        }
+        else { completed(classifications) }
     }
-    
 }

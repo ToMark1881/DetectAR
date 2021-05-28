@@ -24,15 +24,15 @@ class ScannerViewController: BaseViewController {
     fileprivate lazy var coachMarksController = { return CoachMarksController() }()
     
     // MARK:- SCENE
-    fileprivate let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
-    fileprivate var latestPrediction: String = "" // a variable containing the latest CoreML prediction
+    fileprivate let depthOfBubble : Float = 0.01
+    fileprivate var topPrediction: String = ""
     fileprivate var isShowing: Bool = true
     fileprivate var needToTranslate: Bool = false
     fileprivate var nodes = [SCNNode]()
     
     // MARK:- COREML
-    fileprivate var visionRequests = [VNRequest]()
-    fileprivate let dispatchQueueML = DispatchQueue(label: "com.tomark.dispatchqueueml") // A Serial Queue
+    fileprivate var mlRequests = [VNRequest]()
+    fileprivate let dispatchQueueML = DispatchQueue(label: "com.tomark.dispatchqueueml")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,25 +100,23 @@ class ScannerViewController: BaseViewController {
     }
     
     fileprivate func addTapRecognizer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(gestureRecognize:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTapOnScreen(gestureRecognize:)))
         view.addGestureRecognizer(tapGesture)
     }
     
     fileprivate func setModel() {
         guard let selectedModel = self.selectModel() else { return }
         let classificationObject = Classification(suggestionNumber: self.interactor?.getSuggestionNumber() ?? 1, isNeedToTranslate: self.needToTranslate)
-        let classificationRequest = VNCoreMLRequest(model: selectedModel) { request, error in
+        let request = VNCoreMLRequest(model: selectedModel) { request, error in
             classificationObject.classificationCompleteHandler(request: request, error: error) { [weak self] fullText, topPrediction in
                 DispatchQueue.main.async {
                     self?.debugTextView.text = fullText
-                    self?.latestPrediction = topPrediction
+                    self?.topPrediction = topPrediction
                 }
             }
         }
-        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop // Crop from centre of images and scale to appropriate size.
-        visionRequests = [classificationRequest]
-        
-        // Begin Loop to Update CoreML
+        request.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop // Crop from centre of images and scale to appropriate size.
+        mlRequests = [request]
         loopCoreMLUpdate()
     }
     
@@ -126,10 +124,10 @@ class ScannerViewController: BaseViewController {
         return self.interactor?.getSavedModel()
     }
     
-    @objc fileprivate func handleTap(gestureRecognize: UITapGestureRecognizer) {
+    @objc fileprivate func handleTapOnScreen(gestureRecognize: UITapGestureRecognizer) {
         let tapCoordinate = gestureRecognize.location(in: self.sceneView)
         if let worldCoord = self.interactor?.getWorldCoordinateForNode(self.sceneView, tapCoordinate: tapCoordinate) {
-            self.interactor?.generateNode(with: latestPrediction, and: bubbleDepth, completion: { [weak self] (node) in
+            self.interactor?.generateNode(with: topPrediction, and: depthOfBubble, completion: { [weak self] (node) in
                 self?.sceneView.scene.rootNode.addChildNode(node)
                 self?.nodes.append(node)
                 node.position = worldCoord
@@ -138,27 +136,22 @@ class ScannerViewController: BaseViewController {
     }
     
     // MARK: - CoreML Vision Handling
-    
     fileprivate func loopCoreMLUpdate() {
         if !self.isShowing { return }
-        // Continuously run CoreML whenever it's ready. (Preventing 'hiccups' in Frame Rate)
         let delay = needToTranslate ? 0.7 : 0.4
         dispatchQueueML.asyncAfter(deadline: .now() + delay) { [weak self] in
-            if let sSelf = self {
+            if let self = self {
                 // 1. Run Update.
-                sSelf.interactor?.updateCoreML(scene: sSelf.sceneView, visionRequests: sSelf.visionRequests)
-                
+                self.interactor?.updateCoreML(scene: self.sceneView, visionRequests: self.mlRequests)
                 // 2. Loop this function.
-                sSelf.loopCoreMLUpdate()
+                self.loopCoreMLUpdate()
             }
         }
     }
 }
 
 // MARK: - ScannerOutputProtocol
-extension ScannerViewController: ScannerOutputProtocol {
-    
-}
+extension ScannerViewController: ScannerOutputProtocol { }
 
 extension ScannerViewController: CoachMarksControllerDelegate,
                                  CoachMarksControllerDataSource {
@@ -198,7 +191,6 @@ extension ScannerViewController: CoachMarksControllerDelegate,
         }
     }
     
-    
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
         return ScannerCoachMarks.shared.coachMarks.count
     }
@@ -206,6 +198,4 @@ extension ScannerViewController: CoachMarksControllerDelegate,
     func coachMarksController(_ coachMarksController: CoachMarksController, didShow coachMark: CoachMark, afterChanging change: ConfigurationChange, at index: Int) {
         self.interactor?.setTutorial(true)
     }
-    
-    
 }
