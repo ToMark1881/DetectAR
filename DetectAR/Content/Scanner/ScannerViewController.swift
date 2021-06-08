@@ -51,6 +51,11 @@ class ScannerViewController: BaseViewController {
         else { self.needToTranslate = false }
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
+        guard let camera = self.sceneView.pointOfView?.camera else { return }
+        camera.wantsHDR = true
+        camera.exposureOffset = -1
+        camera.minimumExposure = -1
+        camera.maximumExposure = 3
         sceneView.session.run(configuration)
     }
     
@@ -97,6 +102,11 @@ class ScannerViewController: BaseViewController {
         if let debug = self.interactor?.isDebugEnabled() {
             sceneView.showsStatistics = debug
         }
+        if #available(iOS 13.0, *) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                self.addCoaching()
+            }
+        }
     }
     
     fileprivate func addTapRecognizer() {
@@ -115,7 +125,7 @@ class ScannerViewController: BaseViewController {
                 }
             }
         }
-        request.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop // Crop from centre of images and scale to appropriate size.
+        request.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop
         mlRequests = [request]
         loopCoreMLUpdate()
     }
@@ -143,7 +153,7 @@ class ScannerViewController: BaseViewController {
             if let self = self {
                 // 1. Run Update.
                 self.interactor?.updateCoreML(scene: self.sceneView, visionRequests: self.mlRequests)
-                // 2. Loop this function.
+                // 2. Recursion
                 self.loopCoreMLUpdate()
             }
         }
@@ -198,4 +208,31 @@ extension ScannerViewController: CoachMarksControllerDelegate,
     func coachMarksController(_ coachMarksController: CoachMarksController, didShow coachMark: CoachMark, afterChanging change: ConfigurationChange, at index: Int) {
         self.interactor?.setTutorial(true)
     }
+}
+
+extension ScannerViewController: ARCoachingOverlayViewDelegate {
+    
+    @available(iOS 13.0, *)
+    func addCoaching() {
+        let guidanceOverlay = ARCoachingOverlayView()
+        guidanceOverlay.session = self.sceneView.session
+        guidanceOverlay.delegate = self
+        self.sceneView.addSubview(guidanceOverlay)
+
+        //2. Set It To Fill Our View
+        NSLayoutConstraint.activate([
+          NSLayoutConstraint(item:  guidanceOverlay, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0),
+          NSLayoutConstraint(item:  guidanceOverlay, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0),
+          NSLayoutConstraint(item:  guidanceOverlay, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0),
+          NSLayoutConstraint(item:  guidanceOverlay, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
+          ])
+        guidanceOverlay.translatesAutoresizingMaskIntoConstraints = false
+        guidanceOverlay.activatesAutomatically = true
+        guidanceOverlay.goal = .verticalPlane
+    }
+    
+    // Example callback for the delegate object
+    
+    @available(iOS 13.0, *)
+    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView ) { }
 }

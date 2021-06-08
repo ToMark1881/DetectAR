@@ -22,9 +22,7 @@ extension ScannerInteractor: ScannerInputProtocol {
                                                                     types: [.featurePoint])
         if let topResult = arHitTestResults.first {
             let transform : matrix_float4x4 = topResult.worldTransform
-            let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x,
-                                                         transform.columns.3.y,
-                                                         transform.columns.3.z)
+            let worldCoord : SCNVector3 = SCNVector3Make(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
             return worldCoord
         }
         return nil
@@ -69,35 +67,27 @@ extension ScannerInteractor: ScannerInputProtocol {
         DispatchQueue.global(qos: .userInitiated).async {
             let billboardConstraint = SCNBillboardConstraint()
             billboardConstraint.freeAxes = SCNBillboardAxis.Y
-            
-            // BUBBLE
             let bubble = SCNText(string: text, extrusionDepth: CGFloat(depth))
             var font = UIFont(name: "HelveticaNeue-Medium", size: 0.18)
             font = font?.withTraits(traits: .traitBold)
             bubble.font = font
             bubble.alignmentMode = CATextLayerAlignmentMode.center.rawValue
-            bubble.firstMaterial?.diffuse.contents = UIColor(named: "Accent")
+            bubble.firstMaterial?.diffuse.contents = UIColor.white
             bubble.firstMaterial?.specular.contents = UIColor.white
             bubble.firstMaterial?.isDoubleSided = true
             bubble.chamferRadius = CGFloat(depth)
-            
-            // BUBBLE NODE
             let (min, max) = bubble.boundingBox
             let bubbleNode = SCNNode(geometry: bubble)
-            // CENTRE NODE
             bubbleNode.pivot = SCNMatrix4MakeTranslation( (max.x - min.x)/2, min.y, depth/2)
             bubbleNode.scale = SCNVector3Make(0.2, 0.2, 0.2)
-            
             let sphere = SCNSphere(radius: 0.005)
             sphere.firstMaterial?.diffuse.contents = UIColor.red
             let sphereNode = SCNNode(geometry: sphere)
             DispatchQueue.main.async {
-                // BUBBLE PARENT NODE
                 let parentBubbleNode = SCNNode()
                 parentBubbleNode.addChildNode(bubbleNode)
                 parentBubbleNode.addChildNode(sphereNode)
-                parentBubbleNode.constraints = [billboardConstraint]
-                
+                parentBubbleNode.constraints = [billboardConstraint]                
                 completion(parentBubbleNode)
             }
         }
